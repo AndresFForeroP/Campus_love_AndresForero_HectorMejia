@@ -20,21 +20,21 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             Console.WriteLine("                       CAMPUS LOVE                              ");
             Console.WriteLine("----------------------------------------------------------------");
             Console.ResetColor();
+            Console.WriteLine();
 
             return AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                .Title("[cyan]Sleccione una opción:[/]")
-                .HighlightStyle(Style.Parse("cyan bold"))
-                .AddChoices(
-                    "1. Iniciar Sesión",
-                    "2. Registrarse",
-                    "3. Salir"
-                )
+                    .Title("[cyan]Seleccione una opción:[/]")
+                    .HighlightStyle(Style.Parse("cyan bold"))
+                    .AddChoices(
+                        " Iniciar Sesión",
+                        " Registrarse",
+                        " Salir"
+                    )
+                    .UseConverter (op => op.Trim())
             );
-
-
         }
-        
+
 
 
         public void MostrarBienvenida()
@@ -70,6 +70,28 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             Console.ReadKey();
         }
 
+        public async Task IniciarAsync()
+        {
+            var opcion = Dibujoinicio();
 
+            switch (opcion)
+            {
+                case " Iniciar Sesión":
+                    var dibujoInicioSesion = new DibujoInicioSesion();
+                    await dibujoInicioSesion.IniciarDibujoAsync();
+                    break;
+                case " Registrarse":
+                    var dibujoRegistro = new DIbujoRegistro();
+                    // await dibujoRegistro.IniciarDibujoAsync();
+                    break;
+                case " Salir":
+                    MostrarDespedida();
+                    Environment.Exit(0);
+                    break;
+                default:
+                    MostrarError("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj": {}
+    "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj": {}
   },
   "projects": {
-    "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj": {
+    "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj",
+        "projectUniqueName": "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj",
         "projectName": "Campus_Love_AndresForero_HectorMejia",
-        "projectPath": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj",
+        "projectPath": "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj",
         "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/obj/",
+        "outputPath": "/home/camper/Campus_love_AndresForero_HectorMejia-1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/camper/.nuget/NuGet/NuGet.Config"
@@ -69,6 +69,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[9.0.0-rc.1.efcore.9.0.0, )"
+            },
+            "Spectre.Console.Cli": {
+              "target": "Package",
+              "version": "[0.50.0, )"
             },
             "spectre.console": {
               "target": "Package",

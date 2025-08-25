@@ -70,6 +70,10 @@
               "target": "Package",
               "version": "[9.0.0-rc.1.efcore.9.0.0, )"
             },
+            "Spectre.Console.Cli": {
+              "target": "Package",
+              "version": "[0.50.0, )"
+            },
             "spectre.console": {
               "target": "Package",
               "version": "[0.50.0, )"

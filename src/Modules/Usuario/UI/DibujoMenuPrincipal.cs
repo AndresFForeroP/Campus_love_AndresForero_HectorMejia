@@ -69,6 +69,16 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             Console.WriteLine("Presiona cualquier tecla para continuar...");
             Console.ReadKey();
         }
+         public void MostrarCargaInteractiva(string mensaje)
+        {
+            AnsiConsole.Status()
+                .Spinner(Spinner.Known.Dots2)
+                .SpinnerStyle(Style.Parse("green"))
+                .Start(mensaje, ctx =>
+                {
+                    Thread.Sleep(1500);
+                });
+        }
 
         public async Task IniciarAsync()
         {
@@ -82,7 +92,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     break;
                 case " Registrarse":
                     var dibujoRegistro = new DIbujoRegistro();
-                    // await dibujoRegistro.IniciarDibujoAsync();
+                    await dibujoRegistro.InicioDibujoResgistroAsync();
                     break;
                 case " Salir":
                     MostrarDespedida();

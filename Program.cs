@@ -9,10 +9,11 @@ using Spectre.Console;
 
 internal class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         DibujoMenuPrincipal dibujoMenu = new DibujoMenuPrincipal();
         dibujoMenu.MostrarBienvenida();
-        dibujoMenu.Dibujoinicio(); 
+        dibujoMenu.Dibujoinicio();
+        await dibujoMenu.IniciarAsync();
     }
 }

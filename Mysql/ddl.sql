@@ -2,14 +2,15 @@ DROP DATABASE IF EXISTS CampusLove;
 CREATE DATABASE IF NOT EXISTS CampusLove;
 USE CampusLove;
 
-CREATE TABLE IF NOT EXISTS Situacion_Sentimental(
-  Id INT NOT NULL AUTO_INCREMENT,
-  Situacion_Sentimental VARCHAR(25) NOT NULL,
-  PRIMARY KEY (Id)
-) ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS Genero(
   Id INT NOT NULL AUTO_INCREMENT,
   Genero VARCHAR(25) NOT NULL,
+  PRIMARY KEY (Id)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS Orientacion(
+  Id INT NOT NULL AUTO_INCREMENT,
+  Orientacion VARCHAR(50) NOT NULL,
   PRIMARY KEY (Id)
 ) ENGINE = InnoDB;
 
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Usuarios(
   Id_Genero INT NOT NULL,
   Carrera VARCHAR(40),
   Frase TEXT,
-  Id_Situacion_Sentimental INT NOT NULL,
+  Id_orientacion INT NOT NULL,
   Id_busca INT NOT NULL,
   PRIMARY KEY (Id),
   CONSTRAINT fk_Buca
@@ -39,9 +40,9 @@ CREATE TABLE IF NOT EXISTS Usuarios(
     FOREIGN KEY (Id_Genero)
     REFERENCES Genero (Id)
     ON DELETE NO ACTION,
-  CONSTRAINT fk_Situacion_Sentimental
-    FOREIGN KEY (Id_Situacion_Sentimental)
-    REFERENCES Situacion_Sentimental (Id)
+  CONSTRAINT fk_Orientacion
+    FOREIGN KEY (Id_orientacion)
+    REFERENCES Orientacion (Id)
     ON DELETE NO ACTION
 ) ENGINE = InnoDB;
 

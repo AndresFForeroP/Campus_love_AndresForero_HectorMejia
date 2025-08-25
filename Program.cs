@@ -11,9 +11,8 @@ internal class Program
 {
     public static async Task Main(string[] args)
     {
-        DibujoMenuPrincipal dibujoMenu = new DibujoMenuPrincipal();
-        dibujoMenu.MostrarBienvenida();
-        dibujoMenu.Dibujoinicio();
-        await dibujoMenu.IniciarAsync();
+        var dibujoMenu = new DibujoMenuPrincipal();
+        await dibujoMenu.InicioAsync();
+        
     }
 }

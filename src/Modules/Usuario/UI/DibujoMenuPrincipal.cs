@@ -3,86 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
 using Microsoft.VisualBasic;
 using Spectre.Console;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 {
-    public class DibujoMenuPrincipal() : IDibujoMenuPrincipal
+    public class DibujoMenuPrincipal : IDibujoMenuPrincipal
     {
+        private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
 
-        public String Dibujoinicio()
+        public async Task InicioAsync()
         {
 
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("                       CAMPUS LOVE                              ");
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.ResetColor();
-            Console.WriteLine();
-
-            return AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("[cyan]Seleccione una opción:[/]")
-                    .HighlightStyle(Style.Parse("cyan bold"))
-                    .AddChoices(
-                        " Iniciar Sesión",
-                        " Registrarse",
-                        " Salir"
-                    )
-                    .UseConverter (op => op.Trim())
-            );
-        }
-
-
-
-        public void MostrarBienvenida()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("               ¡Bienvenido a Campus Love!                      ");
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.ResetColor();
-            Console.WriteLine("Presiona cualquier tecla para continuar...");
-            Console.ReadKey();
-        }
-
-
-        public void MostrarDespedida()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("          Gracias por usar Campus Love. ¡Hasta luego!          ");
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.ResetColor();
-            Console.WriteLine("Presiona cualquier tecla para salir...");
-            Console.ReadKey();
-        }
-        public void MostrarError(string mensaje)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Error: {mensaje}");
-            Console.ResetColor();
-            Console.WriteLine("Presiona cualquier tecla para continuar...");
-            Console.ReadKey();
-        }
-         public void MostrarCargaInteractiva(string mensaje)
-        {
-            AnsiConsole.Status()
-                .Spinner(Spinner.Known.Dots2)
-                .SpinnerStyle(Style.Parse("green"))
-                .Start(mensaje, ctx =>
-                {
-                    Thread.Sleep(1500);
-                });
-        }
-
-        public async Task IniciarAsync()
-        {
-            var opcion = Dibujoinicio();
+            dibujoMenuUsers.MostrarBienvenida();
+            dibujoMenuUsers.Inicio();
+            var opcion = dibujoMenuUsers.Inicio();
 
             switch (opcion)
             {
@@ -91,17 +28,18 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     await dibujoInicioSesion.IniciarDibujoAsync();
                     break;
                 case " Registrarse":
-                    var dibujoRegistro = new DIbujoRegistro();
+                    var dibujoRegistro = new DibujoRegistro();
                     await dibujoRegistro.InicioDibujoResgistroAsync();
                     break;
                 case " Salir":
-                    MostrarDespedida();
+                    dibujoMenuUsers.MostrarDespedida();
                     Environment.Exit(0);
                     break;
                 default:
-                    MostrarError("Opción no válida. Intente de nuevo.");
+                    dibujoMenuUsers.MostrarError("Opción no válida. Intente de nuevo.");
                     break;
             }
         }
+
     }
 }

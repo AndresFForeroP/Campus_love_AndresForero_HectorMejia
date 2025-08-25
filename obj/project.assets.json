@@ -3306,11 +3306,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj",
+      "projectUniqueName": "/home/camper/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj",
       "projectName": "Campus_Love_AndresForero_HectorMejia",
-      "projectPath": "/home/camper/Campus_love_AndresForero_HectorMejia-1/Campus_Love_AndresForero_HectorMejia.csproj",
+      "projectPath": "/home/camper/Campus_love_AndresForero_HectorMejia/Campus_Love_AndresForero_HectorMejia.csproj",
       "packagesPath": "/home/camper/.nuget/packages/",
-      "outputPath": "/home/camper/Campus_love_AndresForero_HectorMejia-1/obj/",
+      "outputPath": "/home/camper/Campus_love_AndresForero_HectorMejia/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/camper/.nuget/NuGet/NuGet.Config"

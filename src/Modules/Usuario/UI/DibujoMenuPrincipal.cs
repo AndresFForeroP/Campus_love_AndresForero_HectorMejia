@@ -24,7 +24,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             {
                 case " Iniciar Sesión":
                     var dibujoInicioSesion = new DibujoInicioSesion();
-                    dibujoInicioSesion.IniciarDibujoAsync();
+                    await dibujoInicioSesion.IniciarDibujoAsync();
                     break;
                 case " Registrarse":
                     var dibujoRegistro = new DibujoRegistro();

@@ -47,7 +47,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 dibujoMenuUsers.MostrarError("Credenciales incorrectas. Intente de nuevo.");
                 Console.WriteLine("Presiona cualquier tecla para continuar...");
                 Console.ReadKey();
-                dibujoInicioSesion.IniciarDibujoAsync();
+                await dibujoInicioSesion.IniciarDibujoAsync();
             }
         }
     }

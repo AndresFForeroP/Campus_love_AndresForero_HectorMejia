@@ -15,7 +15,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
         
 
-        public async Task OpcionesMenuSesionAsync()
+        public Task OpcionesMenuSesionAsync()
         {
             Console.Clear();
             var opcion2 = dibujoMenus.MenuInicioSesion();
@@ -42,6 +42,8 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     dibujoMenuUsers.MostrarError("Opción no válida. Intente de nuevo.");
                     break;
             }
+
+            return Task.CompletedTask;
         }
     }
 }

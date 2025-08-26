@@ -12,12 +12,12 @@ using System.Text;
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
 {
-    public class DibujoInicioSesion : IDibujoMenuSesion
+    public class DibujoInicioSesion : IDibujoInicioSesion
     {
         public readonly UsuarioRepository repo = null!;
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
-        public void IniciarDibujoAsync()
+        public async Task IniciarDibujoAsync()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -42,7 +42,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             {
                 var dibujoMenu = new DibujoMenuPrincipal();
                 dibujoMenuUsers.MostrarCargaInteractiva("Iniciando sesión, por favor espere...");
-                Task.Delay(1000);
+                await Task.Delay(1000);
                 AnsiConsole.Clear();
                 AnsiConsole.MarkupLine("[green]Inicio de sesión exitoso![/]");
                 AnsiConsole.MarkupLine($"[green]¡Bienvenido, {usuario}![/]");
@@ -50,7 +50,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 Console.ReadKey();
                 AnsiConsole.Clear();
                 var menuSesion = new MenusSesion();
-                menuSesion.OpcionesMenuSesionAsync();
+                await menuSesion.OpcionesMenuSesionAsync();
 
 
             }
@@ -60,7 +60,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 Console.WriteLine("Presiona cualquier tecla para continuar...");
                 Console.ReadKey();
 
-                IniciarDibujoAsync();
+                await IniciarDibujoAsync();
             }
         }
         private string HashSHA256(string input)

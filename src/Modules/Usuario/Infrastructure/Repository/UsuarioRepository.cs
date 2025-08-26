@@ -20,7 +20,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
             return await _context.Set<Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario>()
                 .Include(u => u.genero!)
                 .Include(u => u.InteresesUsuario!)
-                    .ThenInclude(iu => iu.interes!)
+                .ThenInclude(iu => iu.interes!)
                 .Include(u => u.orientacion!)
                 .Include(u => u.busca!)
                 .Include(u => u.dislikedados!)

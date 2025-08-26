@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces
 {
-    public interface IDibujoMenuRegistro
+    public interface IMenusSesion
     {
-        void InicioDibujoResgistroAsync();
+        Task OpcionesMenuSesionAsync();
+
     }
 }

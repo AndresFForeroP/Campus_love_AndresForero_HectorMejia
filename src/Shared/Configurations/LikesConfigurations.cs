@@ -17,11 +17,11 @@ namespace Campus_love_AndresForero_HectorMejia.src.Shared.Configurations
             builder.HasOne(d => d.usuario_darlike)
                 .WithMany(u => u.likesdados)
                 .HasForeignKey(d => d.Id_usuario_darlike)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(d => d.usuario_recibirlike)
                 .WithMany(u => u.likesrecibidos)
                 .HasForeignKey(d => d.Id_usuario_recibirlike)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

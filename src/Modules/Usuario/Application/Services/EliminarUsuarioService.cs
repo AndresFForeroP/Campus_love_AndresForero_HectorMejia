@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
 using Campus_love_AndresForero_HectorMejia.src.Shared.Helpers;
 using Spectre.Console;
 
@@ -22,13 +23,32 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         public async Task EliminarUsuario(int id)
         {
-            var usuario = _usuarios.FirstOrDefault(u => u.Id == id);
-            if (usuario != null)
+            AnsiConsole.MarkupLine("[yellow]Esta seguro de eliminar este usuario? [/]");
+            var confirmacion = AnsiConsole.Confirm("[green]¿Desea continuar?[/]");
+            if (!confirmacion)
             {
-                await _usuarioRepository.DeleteAsync(usuario);
-                _usuarios.Remove(usuario);
-                AnsiConsole.MarkupLine("[green]Usuario eliminado con éxito![/]");
+                AnsiConsole.MarkupLine("[red]Operación cancelada.[/]");
+                var MenuSesion = new MenusSesion(id);
+                Console.WriteLine("Presiona cualquier tecla para continuar...");
+                Console.ReadKey();
+                await MenuSesion.OpcionesMenuSesionAsync();
+                
             }
+            else
+            {
+                var usuario = _usuarios.FirstOrDefault(u => u.Id == id);
+                if (usuario != null)
+                {
+                    await _usuarioRepository.DeleteAsync(usuario);
+                    _usuarios.Remove(usuario);
+                    AnsiConsole.MarkupLine("[green]Usuario eliminado con éxito![/]");
+                    var MenuPrincipal = new MenuPrincipal();
+                    Console.WriteLine("Presiona cualquier tecla para continuar...");
+                    Console.ReadKey();
+                    await MenuPrincipal.InicioAsync();
+                }
+            }
+            
         }
     }
 }

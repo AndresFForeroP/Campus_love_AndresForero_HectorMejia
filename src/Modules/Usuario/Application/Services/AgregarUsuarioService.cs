@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
@@ -62,7 +64,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             dibujoMenu.MostrarCargaInteractiva("Cargando, por favor espere...");
             await Task.Delay(1000);
             AnsiConsole.Clear();
-            var menuSesion = new MenusSesion();
+            var menuSesion = new MenusSesion(_usuarios.Count + 1);
             await menuSesion.OpcionesMenuSesionAsync();
         }
         private string PedirNombre()
@@ -101,7 +103,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
                 Console.Write("Ingrese su contraseña: ");
                 contraseña = Console.ReadLine() ?? string.Empty;
             } while (string.IsNullOrWhiteSpace(contraseña));
-            return contraseña;
+            return HashSHA256(contraseña);
         }
         private int PedirEdad()
         {
@@ -220,7 +222,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         private List<int> PedirIntereses()
         {
             Console.Clear();
-            var intereses = _dibujosAgregarusuario.dibujopedirintereses(); 
+            var intereses = _dibujosAgregarusuario.dibujopedirintereses();
             var interesesLimpios = new List<int>();
 
             foreach (var interes in intereses)
@@ -263,6 +265,12 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
                 }
             }
             return interesesLimpios;
+        }
+        private string HashSHA256(string input)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower(); // Igual que en MySQL
         }
 
     }

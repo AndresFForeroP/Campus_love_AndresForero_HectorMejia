@@ -57,10 +57,15 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
                 await _usuarioRepository.AddAsyncIntereses(InteresesUsuario);
             }
             AnsiConsole.MarkupLine("[green]Usuario registrado con éxito![/]");
+            var dibujoMenu = new DibujoMenuUser();
+            dibujoMenu.MostrarCargaInteractiva("Cargando, por favor espere...");
+            await Task.Delay(1000);
+            AnsiConsole.Clear();
+            var menuSesion = new MenusSesion();
+            await menuSesion.OpcionesMenuSesionAsync();
         }
         private string PedirNombre()
         {
-            Console.Clear();
             string nombre = "";
             do
             {

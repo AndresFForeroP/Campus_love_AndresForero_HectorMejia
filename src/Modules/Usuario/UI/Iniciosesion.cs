@@ -41,8 +41,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 AnsiConsole.Clear();
                 var menuSesion = new MenusSesion();
                 await menuSesion.OpcionesMenuSesionAsync();
-
-
             }
             else
             {

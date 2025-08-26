@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services;
 using Microsoft.VisualBasic;
 using Spectre.Console;
 
@@ -13,9 +14,14 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
-        
+        private int id;
 
-        public Task OpcionesMenuSesionAsync()
+        public MenusSesion(int id)
+        {
+            this.id = id;
+        }
+
+        public async Task OpcionesMenuSesionAsync()
         {
             Console.Clear();
             var opcion2 = dibujoMenus.MenuInicioSesion();
@@ -23,16 +29,19 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             switch (opcion2)
             {
                 case " Encontrar el amor de tu vida":
-
+                    var buscarParejaService = new EncontrarMatchServices();
+                    await buscarParejaService.EncontrarMatch(id);
                     break;
                 case " Matches":
 
                     break;
                 case " Cambiar mis datos":
-
+                    var actualizarUsuarioServices = new ActualizarUsuarioServices();
+                    await actualizarUsuarioServices.ActualizarUsuario(id);
                     break;
                 case "Eliminar mi cuenta":
-
+                    var eliminarUsuarioService = new EliminarUsuarioService();
+                    await eliminarUsuarioService.EliminarUsuario(id);
                     break;
                 case " Cerrar sesión":
                     dibujoMenuUsers.MostrarDespedida();
@@ -42,8 +51,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     dibujoMenuUsers.MostrarError("Opción no válida. Intente de nuevo.");
                     break;
             }
-
-            return Task.CompletedTask;
         }
     }
 }

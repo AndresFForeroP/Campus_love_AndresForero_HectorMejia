@@ -8,71 +8,64 @@ using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Inter
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
 using Campus_love_AndresForero_HectorMejia.src.Shared.Helpers;
-using Microsoft.EntityFrameworkCore;
 using Spectre.Console;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services
 {
-    public class AgregarUsuarioService : IAgregarUsuarioService
+    public class ActualizarUsuarioServices : IActualizarUsuariosRepository
     {
         private readonly UsuarioRepository _usuarioRepository;
         private List<Domain.Entities.Usuario> _usuarios = new List<Domain.Entities.Usuario>();
         private DibujosAgregarusuario _dibujosAgregarusuario;
-        public AgregarUsuarioService()
+
+        public ActualizarUsuarioServices()
         {
-            var context = DbContextFactory.Create();
+             var context = DbContextFactory.Create();
             _usuarioRepository = new UsuarioRepository(context);
             _usuarios = _usuarioRepository.GetAllAsync().Result.ToList();
             _dibujosAgregarusuario = new DibujosAgregarusuario();
         }
-        public async Task AgregarUsuario()
+        public async Task ActualizarUsuario(int id)
         {
-            string nombre = PedirNombre();
-            string usuario = PedirUsuario();
-            string contraseña = PedirContraseña();
-            int edad = PedirEdad();
-            string carrera = PedirCarrera();
-            string frase = PedirFrase();
-            int genero = PedirGenero();
-            int orientacion = PedirOrientacion();
-            int busca = PedirBusca();
-            List<int> intereses = PedirIntereses();
-            var nuevoUsuario = new Domain.Entities.Usuario
+            var user = _usuarios.FirstOrDefault(u => u.Id == id);
+            if (user != null)
             {
-                nombre = nombre,
-                usuario = usuario,
-                contraseña = contraseña,
-                edad = edad,
-                carrera = carrera,
-                frase = frase,
-                Id_Genero = genero,
-                Id_orientacion = orientacion,
-                Id_busca = busca,
-            };
-            await _usuarioRepository.AddAsync(nuevoUsuario ?? new Domain.Entities.Usuario());
-            foreach (var item in intereses)
-            {
-                var InteresesUsuario = new Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario
-                {
-                    Id_interes = item,
-                    Id_usuario = _usuarios.Count + 1
-                };
-                await _usuarioRepository.AddAsyncIntereses(InteresesUsuario);
-            }
-            AnsiConsole.MarkupLine("[green]Usuario registrado con éxito![/]");
-            var dibujoMenu = new DibujoMenuUser();
-            dibujoMenu.MostrarCargaInteractiva("Cargando, por favor espere...");
-            await Task.Delay(1000);
-            AnsiConsole.Clear();
-            var menuSesion = new MenusSesion(_usuarios.Count + 1);
-            await menuSesion.OpcionesMenuSesionAsync();
+                string nombre = PedirNombre();
+                string usuario = PedirUsuario();
+                string contraseña = PedirContraseña();
+                int edad = PedirEdad();
+                string carrera = PedirCarrera();
+                string frase = PedirFrase();
+                int genero = PedirGenero();
+                int orientacion = PedirOrientacion();
+                int busca = PedirBusca();
+                List<int> intereses = PedirIntereses();
+                user.nombre = nombre;
+                user.usuario = usuario;
+                user.contraseña = contraseña;
+                user.edad = edad;
+                user.carrera = carrera;
+                user.frase = frase;
+                user.Id_Genero = genero;
+                user.Id_orientacion = orientacion;
+                user.Id_busca = busca;
+                await _usuarioRepository.UpdateAsync(user);
+                await _usuarioRepository.UpdateInteresesAsync(user.Id,intereses);
+                AnsiConsole.MarkupLine("[green]Usuario actualizado con éxito![/]");
+                var dibujoMenu = new DibujoMenuUser();
+                dibujoMenu.MostrarCargaInteractiva("Cargando, por favor espere...");
+                await Task.Delay(1000);
+                AnsiConsole.Clear();
+                var menuSesion = new MenusSesion(user.Id);
+                await menuSesion.OpcionesMenuSesionAsync();
+                }
         }
         private string PedirNombre()
         {
             string nombre = "";
             do
             {
-                Console.Write("Ingrese su nombre: ");
+                Console.Write("Ingrese su nombre nuevo: ");
                 nombre = Console.ReadLine() ?? string.Empty;
             } while (string.IsNullOrWhiteSpace(nombre));
             return nombre;
@@ -83,7 +76,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             string usuario = "";
             do
             {
-                Console.Write("Ingrese su usuario: ");
+                Console.Write("Ingrese el usuario nuevo: ");
                 usuario = Console.ReadLine() ?? string.Empty;
                 if (_usuarios.Any(u => (u.usuario ?? string.Empty).Equals(usuario, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -100,7 +93,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             string contraseña = "";
             do
             {
-                Console.Write("Ingrese su contraseña: ");
+                Console.Write("Ingrese su contraseña nueva: ");
                 contraseña = Console.ReadLine() ?? string.Empty;
             } while (string.IsNullOrWhiteSpace(contraseña));
             return HashSHA256(contraseña);
@@ -111,7 +104,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             int edad;
             do
             {
-                Console.Write("Ingrese su edad: ");
+                Console.Write("Ingrese su edad nueva: ");
                 string input = Console.ReadLine() ?? string.Empty;
                 if (!int.TryParse(input, out edad))
                 {
@@ -126,7 +119,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             string carrera = "";
             do
             {
-                Console.Write("Ingrese su carrera: ");
+                Console.Write("Ingrese su carrera nueva: ");
                 carrera = Console.ReadLine() ?? string.Empty;
             } while (string.IsNullOrWhiteSpace(carrera));
             return carrera;
@@ -272,6 +265,5 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
             var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
             return BitConverter.ToString(bytes).Replace("-", "").ToLower(); // Igual que en MySQL
         }
-
     }
 }

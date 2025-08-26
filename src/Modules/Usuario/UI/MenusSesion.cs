@@ -14,7 +14,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
-        private readonly MatchesUsuariosService matchesUsuariosService = new MatchesUsuariosService(new UsuarioRepository(new Microsoft.EntityFrameworkCore.DbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<Microsoft.EntityFrameworkCore.DbContext>())));
         private int id;
 
         public MenusSesion(int id)
@@ -34,7 +33,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     await buscarParejaService.EncontrarMatch(id);
                     break;
                 case " Matches":
-                    await matchesUsuariosService.MostrarMatches(id);
+
                     break;
                 case " Cambiar mis datos":
                     var actualizarUsuarioServices = new ActualizarUsuarioServices();

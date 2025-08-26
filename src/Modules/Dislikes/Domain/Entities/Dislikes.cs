@@ -11,6 +11,5 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Dislikes.Domain.Entit
         public Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario? usuario_dardislike { get; set; }
         public int Id_usuario_recibirdislike { get; set; }
         public Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario? usuario_recibirdislike { get; set; }
-        public int Id_usuario_dislike { get; internal set; }
     }
 }

@@ -17,8 +17,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
         public readonly UsuarioRepository repo = null!;
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
-        private readonly MenusSesion menusSesion = new MenusSesion();
-        
         public void IniciarDibujoAsync()
         {
             Console.Clear();
@@ -27,9 +25,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             Console.WriteLine("                       INICIO DE SESIÓN                         ");
             Console.WriteLine("----------------------------------------------------------------");
             Console.ResetColor();
-
-            var inicioSesion = new Iniciosesion();
-            menusSesion.OpcionesMenuSesionAsync();
 
         } 
     }

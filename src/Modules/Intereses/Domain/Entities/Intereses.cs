@@ -7,8 +7,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Intereses.Domain.Enti
 {
     public class Intereses
     {
-        internal object nombre;
-
         public int Id { get; set; }
         public string? interes { get; set; }
         public string? descripcion { get; set; }

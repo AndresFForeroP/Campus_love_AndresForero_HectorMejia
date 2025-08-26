@@ -7,8 +7,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.I
 {
     public interface IMatchesUsuariosService
     {
-        
-        Task InicializarUsuarios();
         Task MostrarMatches(int id);
         Task MostrarMatchesConInput();
     }

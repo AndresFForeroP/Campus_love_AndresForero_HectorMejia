@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
 using Microsoft.VisualBasic;
 using Spectre.Console;
 
@@ -13,9 +15,9 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
-        
+        private readonly MatchesUsuariosService matchesUsuariosService = new MatchesUsuariosService(new UsuarioRepository(new Microsoft.EntityFrameworkCore.DbContext(new Microsoft.EntityFrameworkCore.DbContextOptions<Microsoft.EntityFrameworkCore.DbContext>())));
 
-        public Task OpcionesMenuSesionAsync()
+        public async Task OpcionesMenuSesionAsync()
         {
             Console.Clear();
             var opcion2 = dibujoMenus.MenuInicioSesion();
@@ -26,7 +28,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
                     break;
                 case " Matches":
-
+                    await matchesUsuariosService.MostrarMatches(0);
                     break;
                 case " Cambiar mis datos":
 
@@ -42,8 +44,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     dibujoMenuUsers.MostrarError("Opción no válida. Intente de nuevo.");
                     break;
             }
-
-            return Task.CompletedTask;
         }
     }
 }

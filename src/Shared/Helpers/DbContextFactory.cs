@@ -1,9 +1,9 @@
 using System;
-using Cafe_Colombiano.src.Shared.Context;
+using Campus_love_AndresForero_HectorMejia.src.Shared.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Cafe_Colombiano.src.Shared.Helpers
+namespace Campus_love_AndresForero_HectorMejia.src.Shared.Helpers
 {
     public class DbContextFactory
     {
@@ -14,9 +14,7 @@ namespace Cafe_Colombiano.src.Shared.Helpers
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
-            string? connectionString = Environment.GetEnvironmentVariable("MysqlConnection")
-                ?? configuration.GetConnectionString("MysqlConnection");
-
+            string? connectionString = configuration.GetConnectionString("MysqlConnection");
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("Connection string 'MysqlConnection' is not configured.");

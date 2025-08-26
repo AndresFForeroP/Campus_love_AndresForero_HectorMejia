@@ -9,13 +9,13 @@ using Spectre.Console;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 {
-    public class DibujoMenuPrincipal : IDibujoMenuPrincipal
+    public class MenuPrincipal : IMenuPrincipal
     {
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
+        private readonly IMenuRegistro menuRegistro = new MenuRegistro();
 
-        public async Task InicioAsync()
+        public Task InicioAsync()
         {
-
             Console.Clear();
             dibujoMenuUsers.MostrarBienvenida();
             var opcion = dibujoMenuUsers.Inicio();
@@ -28,7 +28,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     break;
                 case " Registrarse":
                     var dibujoRegistro = new DibujoRegistro();
-                    await dibujoRegistro.InicioDibujoResgistroAsync();
+                    dibujoRegistro.InicioDibujoResgistroAsync();
                     break;
                 case " Salir":
                     dibujoMenuUsers.MostrarDespedida();
@@ -38,6 +38,8 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                     dibujoMenuUsers.MostrarError("Opción no válida. Intente de nuevo.");
                     break;
             }
+
+            return Task.CompletedTask;
         }
 
     }

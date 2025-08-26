@@ -30,7 +30,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
             if (usuario == usercorrecto && contrasena == passcorrecto)
             {
-                var dibujoMenu = new DibujoMenuPrincipal();
+                var dibujoMenu = new MenuPrincipal();
                 dibujoMenuUsers.MostrarCargaInteractiva("Iniciando sesión, por favor espere...");
                 await Task.Delay(1000);
                 AnsiConsole.Clear();

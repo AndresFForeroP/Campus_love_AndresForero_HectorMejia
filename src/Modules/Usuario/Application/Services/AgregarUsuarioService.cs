@@ -19,7 +19,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         {
             var context = DbContextFactory.Create();
             _usuarioRepository = new UsuarioRepository(context);
-
+            _usuarios = _usuarioRepository.GetAllAsync().Result.ToList();
             _dibujosAgregarusuario = new DibujosAgregarusuario();
         }
         public async Task AgregarUsuario()
@@ -46,20 +46,21 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
                 Id_orientacion = orientacion,
                 Id_busca = busca,
             };
+            await _usuarioRepository.AddAsync(nuevoUsuario ?? new Domain.Entities.Usuario());
             foreach (var item in intereses)
             {
-                nuevoUsuario?.InteresesUsuario?.Add(new Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario
+                var InteresesUsuario = new Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario
                 {
                     Id_interes = item,
-                    Id_usuario = nuevoUsuario.Id
-                });
+                    Id_usuario = _usuarios.Count + 1
+                };
+                await _usuarioRepository.AddAsyncIntereses(InteresesUsuario);
             }
-
-
-            await _usuarioRepository.AddAsync(nuevoUsuario ?? new Domain.Entities.Usuario());
+            AnsiConsole.MarkupLine("[green]Usuario registrado con éxito![/]");
         }
         private string PedirNombre()
         {
+            Console.Clear();
             string nombre = "";
             do
             {
@@ -70,6 +71,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private string PedirUsuario()
         {
+            Console.Clear();
             string usuario = "";
             do
             {
@@ -86,6 +88,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private string PedirContraseña()
         {
+            Console.Clear();
             string contraseña = "";
             do
             {
@@ -96,6 +99,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private int PedirEdad()
         {
+            Console.Clear();
             int edad;
             do
             {
@@ -110,6 +114,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private string PedirCarrera()
         {
+            Console.Clear();
             string carrera = "";
             do
             {
@@ -120,6 +125,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private string PedirFrase()
         {
+            Console.Clear();
             string frase = "";
             do
             {
@@ -130,6 +136,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private int PedirGenero()
         {
+            Console.Clear();
             var genero = _dibujosAgregarusuario.dibujopedirgenero();
             switch (genero)
             {
@@ -152,6 +159,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private int PedirOrientacion()
         {
+            Console.Clear();
             var orientacion = _dibujosAgregarusuario.dibujopedirorientacion();
             switch (orientacion)
             {
@@ -184,6 +192,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private int PedirBusca()
         {
+            Console.Clear();
             var busca = _dibujosAgregarusuario.dibujopedirbusca();
             switch (busca)
             {
@@ -204,6 +213,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.S
         }
         private List<int> PedirIntereses()
         {
+            Console.Clear();
             var intereses = _dibujosAgregarusuario.dibujopedirintereses(); 
             var interesesLimpios = new List<int>();
 

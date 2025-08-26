@@ -36,13 +36,26 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
 
             try
             {
-                Console.WriteLine($"Usuario agregado: {usuario.nombre} edad: {usuario.edad} carrera: {usuario.carrera} frase: {usuario.frase}");
                 await _context.AddAsync(usuario);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al guardar usuario: {ex.Message}");
+                throw;
+            }
+        }
+        public async Task AddAsyncIntereses(Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario interesesUsuario)
+        {
+
+            try
+            {
+                await _context.AddAsync(interesesUsuario);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar InteresesUsuario: {ex.Message}");
                 throw;
             }
         }

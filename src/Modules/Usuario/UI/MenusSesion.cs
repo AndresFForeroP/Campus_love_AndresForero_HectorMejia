@@ -35,7 +35,8 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
                     break;
                 case " Cambiar mis datos":
-
+                    var actualizarUsuarioServices = new ActualizarUsuarioServices();
+                    await actualizarUsuarioServices.ActualizarUsuario(id);
                     break;
                 case "Eliminar mi cuenta":
                     var eliminarUsuarioService = new EliminarUsuarioService();

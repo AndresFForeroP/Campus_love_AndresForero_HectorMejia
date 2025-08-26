@@ -72,5 +72,33 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
                 throw;
             }
         }
+        public async Task UpdateAsync(Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario usuario)
+        {
+            try
+            {
+                _context.Update(usuario);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar usuario: {ex.Message}");
+                throw;
+            }
+        }
+        public async Task UpdateInteresesAsync(int userId, List<int> intereses)
+        {
+            var interesesUsuarioSet = _context.Set<Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario>();
+            var existentes = interesesUsuarioSet.Where(i => i.Id_usuario == userId);
+            interesesUsuarioSet.RemoveRange(existentes);
+            foreach (var interesId in intereses)
+            {
+                interesesUsuarioSet.Add(new Campus_love_AndresForero_HectorMejia.src.Modules.InteresesUsuario.Domain.Entities.InteresesUsuario
+                {
+                    Id_usuario = userId,
+                    Id_interes = interesId
+                });
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

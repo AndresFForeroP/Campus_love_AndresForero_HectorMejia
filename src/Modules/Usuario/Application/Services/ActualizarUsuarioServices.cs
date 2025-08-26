@@ -1,0 +1,269 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
+using Campus_love_AndresForero_HectorMejia.src.Shared.Helpers;
+using Spectre.Console;
+
+namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services
+{
+    public class ActualizarUsuarioServices : IActualizarUsuariosRepository
+    {
+        private readonly UsuarioRepository _usuarioRepository;
+        private List<Domain.Entities.Usuario> _usuarios = new List<Domain.Entities.Usuario>();
+        private DibujosAgregarusuario _dibujosAgregarusuario;
+
+        public ActualizarUsuarioServices()
+        {
+             var context = DbContextFactory.Create();
+            _usuarioRepository = new UsuarioRepository(context);
+            _usuarios = _usuarioRepository.GetAllAsync().Result.ToList();
+            _dibujosAgregarusuario = new DibujosAgregarusuario();
+        }
+        public async Task ActualizarUsuario(int id)
+        {
+            var user = _usuarios.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                string nombre = PedirNombre();
+                string usuario = PedirUsuario();
+                string contraseña = PedirContraseña();
+                int edad = PedirEdad();
+                string carrera = PedirCarrera();
+                string frase = PedirFrase();
+                int genero = PedirGenero();
+                int orientacion = PedirOrientacion();
+                int busca = PedirBusca();
+                List<int> intereses = PedirIntereses();
+                user.nombre = nombre;
+                user.usuario = usuario;
+                user.contraseña = contraseña;
+                user.edad = edad;
+                user.carrera = carrera;
+                user.frase = frase;
+                user.Id_Genero = genero;
+                user.Id_orientacion = orientacion;
+                user.Id_busca = busca;
+                await _usuarioRepository.UpdateAsync(user);
+                await _usuarioRepository.UpdateInteresesAsync(user.Id,intereses);
+                AnsiConsole.MarkupLine("[green]Usuario actualizado con éxito![/]");
+                var dibujoMenu = new DibujoMenuUser();
+                dibujoMenu.MostrarCargaInteractiva("Cargando, por favor espere...");
+                await Task.Delay(1000);
+                AnsiConsole.Clear();
+                var menuSesion = new MenusSesion(user.Id);
+                await menuSesion.OpcionesMenuSesionAsync();
+                }
+        }
+        private string PedirNombre()
+        {
+            string nombre = "";
+            do
+            {
+                Console.Write("Ingrese su nombre nuevo: ");
+                nombre = Console.ReadLine() ?? string.Empty;
+            } while (string.IsNullOrWhiteSpace(nombre));
+            return nombre;
+        }
+        private string PedirUsuario()
+        {
+            Console.Clear();
+            string usuario = "";
+            do
+            {
+                Console.Write("Ingrese el usuario nuevo: ");
+                usuario = Console.ReadLine() ?? string.Empty;
+                if (_usuarios.Any(u => (u.usuario ?? string.Empty).Equals(usuario, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Console.WriteLine("Ese usuario ya existe, intente con otro.");
+                    usuario = "";
+                }
+            } while (string.IsNullOrWhiteSpace(usuario));
+
+            return usuario;
+        }
+        private string PedirContraseña()
+        {
+            Console.Clear();
+            string contraseña = "";
+            do
+            {
+                Console.Write("Ingrese su contraseña nueva: ");
+                contraseña = Console.ReadLine() ?? string.Empty;
+            } while (string.IsNullOrWhiteSpace(contraseña));
+            return HashSHA256(contraseña);
+        }
+        private int PedirEdad()
+        {
+            Console.Clear();
+            int edad;
+            do
+            {
+                Console.Write("Ingrese su edad nueva: ");
+                string input = Console.ReadLine() ?? string.Empty;
+                if (!int.TryParse(input, out edad))
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                }
+            } while (edad <= 0);
+            return edad;
+        }
+        private string PedirCarrera()
+        {
+            Console.Clear();
+            string carrera = "";
+            do
+            {
+                Console.Write("Ingrese su carrera nueva: ");
+                carrera = Console.ReadLine() ?? string.Empty;
+            } while (string.IsNullOrWhiteSpace(carrera));
+            return carrera;
+        }
+        private string PedirFrase()
+        {
+            Console.Clear();
+            string frase = "";
+            do
+            {
+                Console.Write("Ingrese una frase que lo describa: ");
+                frase = Console.ReadLine() ?? string.Empty;
+            } while (string.IsNullOrWhiteSpace(frase));
+            return frase;
+        }
+        private int PedirGenero()
+        {
+            Console.Clear();
+            var genero = _dibujosAgregarusuario.dibujopedirgenero();
+            switch (genero)
+            {
+                case "[blue]👨‍🎓 Hombre Cisgénero[/]":
+                    return 1;
+                case "[teal]⚧ Hombre Intersexual[/]":
+                    return 2;
+                case "[purple]👨‍🦱➡️⚧ Hombre Trans[/]":
+                    return 3;
+                case "[pink1]👩‍🎓 Mujer Cisgénero[/]":
+                    return 4;
+                case "[orchid]⚧ Mujer Intersexual[/]":
+                    return 5;
+                case "[magenta]👩➡️⚧ Mujer Trans[/]":
+                    return 6;
+                case "[yellow]🌈 Mas allá del binario[/]":
+                    return 7;
+            }
+            return 0;
+        }
+        private int PedirOrientacion()
+        {
+            Console.Clear();
+            var orientacion = _dibujosAgregarusuario.dibujopedirorientacion();
+            switch (orientacion)
+            {
+                case "[blue]❤️‍🔥 Heterosexual[/]":
+                    return 1;
+                case "[red]🌈 Gay u homosexual[/]":
+                    return 2;
+                case "[pink1]👩‍❤️‍👩 Lesbiana[/]":
+                    return 3;
+                case "[purple]💜 Bisexual[/]":
+                    return 4;
+                case "[grey]❄️ Asexual[/]":
+                    return 5;
+                case "[teal]🤝 Demisexual[/]":
+                    return 6;
+                case "[yellow]✨ Pansexual[/]":
+                    return 7;
+                case "[magenta]🌟 Queer[/]":
+                    return 8;
+                case "[orange1]🔍 Explorando[/]":
+                    return 9;
+                case "[green]💚 Arromántico[/]":
+                    return 10;
+                case "[violet]🌀 Omnisexual[/]":
+                    return 11;
+                case "[white]❓ Otro[/]":
+                    return 12;
+            }
+            return 0;
+        }
+        private int PedirBusca()
+        {
+            Console.Clear();
+            var busca = _dibujosAgregarusuario.dibujopedirbusca();
+            switch (busca)
+            {
+                case "[red]❤️ Relación[/]":
+                    return 1;
+                case "[orange1]💞 Relación, pero no me cierro[/]":
+                    return 2;
+                case "[yellow]🎉 Diversión, pero no me cierro[/]":
+                    return 3;
+                case "[pink1]🔥 Diversión a corto plazo[/]":
+                    return 4;
+                case "[blue]🤝 Hacer amigos[/]":
+                    return 5;
+                case "[grey]🤔 Lo sigo pensando[/]":
+                    return 6;
+            }
+            return 0;
+        }
+        private List<int> PedirIntereses()
+        {
+            Console.Clear();
+            var intereses = _dibujosAgregarusuario.dibujopedirintereses();
+            var interesesLimpios = new List<int>();
+
+            foreach (var interes in intereses)
+            {
+                switch (interes)
+                {
+                    case "[magenta]🎵 Música[/]":
+                        interesesLimpios.Add(1);
+                        break;
+                    case "[green]⚽ Deportes[/]":
+                        interesesLimpios.Add(2);
+                        break;
+                    case "[yellow]🎬 Cine[/]":
+                        interesesLimpios.Add(3);
+                        break;
+                    case "[blue]✈️ Viajar[/]":
+                        interesesLimpios.Add(4);
+                        break;
+                    case "[purple]📚 Leer[/]":
+                        interesesLimpios.Add(5);
+                        break;
+                    case "[red]🍳 Cocina[/]":
+                        interesesLimpios.Add(6);
+                        break;
+                    case "[teal]🎮 Videojuegos[/]":
+                        interesesLimpios.Add(7);
+                        break;
+                    case "[orange1]🎨 Arte[/]":
+                        interesesLimpios.Add(8);
+                        break;
+                    case "[green]🌿 Naturaleza[/]":
+                        interesesLimpios.Add(9);
+                        break;
+                    case "[cyan]💻 Programación[/]":
+                        interesesLimpios.Add(10);
+                        break;
+                    case "[pink1]📸 Fotografía[/]":
+                        interesesLimpios.Add(11);
+                        break;
+                }
+            }
+            return interesesLimpios;
+        }
+        private string HashSHA256(string input)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower(); // Igual que en MySQL
+        }
+    }
+}

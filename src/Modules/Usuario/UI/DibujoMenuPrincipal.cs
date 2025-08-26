@@ -18,7 +18,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
 
             Console.Clear();
             dibujoMenuUsers.MostrarBienvenida();
-            dibujoMenuUsers.Inicio();
             var opcion = dibujoMenuUsers.Inicio();
 
             switch (opcion)

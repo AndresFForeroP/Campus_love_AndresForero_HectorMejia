@@ -39,10 +39,10 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
         public void MostrarBienvenida()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("               ¡Bienvenido a Campus Love!                      ");
-            Console.WriteLine("----------------------------------------------------------------");
+            AnsiConsole.Write(
+                new FigletText("Bienvenido a Campus love")
+                    .Centered()
+                    .Color(Color.Red1));
             Console.ResetColor();
             Console.WriteLine("Presiona cualquier tecla para continuar...");
             Console.ReadKey();

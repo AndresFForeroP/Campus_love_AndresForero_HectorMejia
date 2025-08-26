@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_love_AndresForero_HectorMejia.csproj": {}
+    "C:\\Proyectos visual\\C#\\Campus_love\\Campus_love_AndresForero_HectorMejia\\Campus_Love_AndresForero_HectorMejia.csproj": {}
   },
   "projects": {
-    "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_love_AndresForero_HectorMejia.csproj": {
+    "C:\\Proyectos visual\\C#\\Campus_love\\Campus_love_AndresForero_HectorMejia\\Campus_Love_AndresForero_HectorMejia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_love_AndresForero_HectorMejia.csproj",
-        "projectName": "Campus_love_AndresForero_HectorMejia",
-        "projectPath": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/Campus_love_AndresForero_HectorMejia.csproj",
-        "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/examen/Campus_love_AndresForero_HectorMejia/obj/",
+        "projectUniqueName": "C:\\Proyectos visual\\C#\\Campus_love\\Campus_love_AndresForero_HectorMejia\\Campus_Love_AndresForero_HectorMejia.csproj",
+        "projectName": "Campus_Love_AndresForero_HectorMejia",
+        "projectPath": "C:\\Proyectos visual\\C#\\Campus_love\\Campus_love_AndresForero_HectorMejia\\Campus_Love_AndresForero_HectorMejia.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Proyectos visual\\C#\\Campus_love\\Campus_love_AndresForero_HectorMejia\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/camper/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,11 +38,47 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0-rc.1.efcore.9.0.0, )"
+            },
+            "Spectre.Console.Cli": {
+              "target": "Package",
+              "version": "[0.50.0, )"
+            },
+            "spectre.console": {
+              "target": "Package",
+              "version": "[0.50.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

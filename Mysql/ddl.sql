@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Orientacion(
 
 CREATE TABLE IF NOT EXISTS Busca(
   Id INT NOT NULL AUTO_INCREMENT,
-  Busca VARCHAR(25) NOT NULL,
+  Busca VARCHAR(100) NOT NULL,
   PRIMARY KEY (Id)
 ) ENGINE = InnoDB;
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Usuarios(
   Id_orientacion INT NOT NULL,
   Id_busca INT NOT NULL,
   PRIMARY KEY (Id),
-  CONSTRAINT fk_Buca
+  CONSTRAINT fk_Busca
     FOREIGN KEY (Id_busca)
     REFERENCES Busca (Id)
     ON DELETE NO ACTION,
@@ -88,29 +88,29 @@ CREATE TABLE IF NOT EXISTS InteresesUsuarios(
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Likes(
-  Id_usuario_dar INT NOT NULL,
-  Id_usuario_recibir INT NOT NULL,
-  PRIMARY KEY (Id_usuario_dar,Id_usuario_recibir),
+  Id_usuario_darlike INT NOT NULL,
+  Id_usuario_recibirlike INT NOT NULL,
+  PRIMARY KEY (Id_usuario_darlike,Id_usuario_recibirlike),
   CONSTRAINT fk_Usuarios_dar_like
-    FOREIGN KEY (Id_usuario_dar)
+    FOREIGN KEY (Id_usuario_darlike)
     REFERENCES Usuarios (Id)
     ON DELETE CASCADE,
   CONSTRAINT fk_Usuarios_recibir_like
-    FOREIGN KEY (Id_usuario_recibir)
+    FOREIGN KEY (Id_usuario_recibirlike)
     REFERENCES Usuarios (Id)
     ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Dislikes(
-  Id_usuario_dar INT NOT NULL,
-  Id_usuario_recibir INT NOT NULL,
-  PRIMARY KEY (Id_usuario_dar,Id_usuario_recibir),
+  Id_usuario_dardislike INT NOT NULL,
+  Id_usuario_recibirdislike INT NOT NULL,
+  PRIMARY KEY (Id_usuario_dardislike,Id_usuario_recibirdislike),
   CONSTRAINT fk_Usuarios_dar_dislike
-    FOREIGN KEY (Id_usuario_dar)
+    FOREIGN KEY (Id_usuario_dardislike)
     REFERENCES Usuarios (Id)
     ON DELETE CASCADE,
   CONSTRAINT fk_Usuarios_recibir_dislike
-    FOREIGN KEY (Id_usuario_recibir)
+    FOREIGN KEY (Id_usuario_recibirdislike)
     REFERENCES Usuarios (Id)
     ON DELETE CASCADE
 ) ENGINE = InnoDB;

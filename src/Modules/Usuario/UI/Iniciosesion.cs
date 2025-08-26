@@ -3,46 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
-using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
-using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
 using Spectre.Console;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
-
 {
-    public class DibujoInicioSesion : IDibujoMenuSesion
+    public class Iniciosesion : IIniciosesion
     {
-        public readonly UsuarioRepository repo = null!;
+        private readonly DibujoInicioSesion dibujoInicioSesion = new DibujoInicioSesion();
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
         private readonly DibujoMenus dibujoMenus = new DibujoMenus();
-        public void IniciarDibujoAsync()
+        public async Task IniciosesionAsync()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("                       INICIO DE SESIÓN                         ");
-            Console.WriteLine("----------------------------------------------------------------");
-            Console.ResetColor();
-
-            var usuario = AnsiConsole.Ask<string>("[cyan]Ingrese su nombre de usuario:[/]");
-            var contra = AnsiConsole.Prompt(
+            var usuario = AnsiConsole.Ask<string>("Ingrese su [green]nombre de usuario[/]:");
+            var contrasena = AnsiConsole.Prompt(
                 new TextPrompt<string>("[cyan]Ingrese su contraseña:[/]")
                 .PromptStyle("cyan")
                 .Secret()
 
             );
-            AnsiConsole.MarkupLine("[yellow]Verificando credenciales...[/]");
+            AnsiConsole.MarkupLine("[yellow]Verificando sus credenciales...[/]");
 
             string usercorrecto = "admin";
             string passcorrecto = "1234";
 
-            if (usuario == usercorrecto && contra == passcorrecto)
+            if (usuario == usercorrecto && contrasena == passcorrecto)
             {
                 var dibujoMenu = new DibujoMenuPrincipal();
                 dibujoMenuUsers.MostrarCargaInteractiva("Iniciando sesión, por favor espere...");
-                Task.Delay(1000);
+                await Task.Delay(1000);
                 AnsiConsole.Clear();
                 AnsiConsole.MarkupLine("[green]Inicio de sesión exitoso![/]");
                 AnsiConsole.MarkupLine($"[green]¡Bienvenido, {usuario}![/]");
@@ -50,7 +38,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 Console.ReadKey();
                 AnsiConsole.Clear();
                 var menuSesion = new MenusSesion();
-                menuSesion.OpcionesMenuSesionAsync();
+                await menuSesion.OpcionesMenuSesionAsync();
 
 
             }
@@ -59,16 +47,8 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 dibujoMenuUsers.MostrarError("Credenciales incorrectas. Intente de nuevo.");
                 Console.WriteLine("Presiona cualquier tecla para continuar...");
                 Console.ReadKey();
-
-                IniciarDibujoAsync();
+                dibujoInicioSesion.IniciarDibujoAsync();
             }
         }
-        private string HashSHA256(string input)
-        {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
-            return BitConverter.ToString(bytes).Replace("-", "").ToLower(); // Igual que en MySQL
-        }
-        
     }
 }

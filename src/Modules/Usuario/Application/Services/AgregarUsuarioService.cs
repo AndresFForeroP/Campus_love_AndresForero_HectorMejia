@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
 using Campus_love_AndresForero_HectorMejia.src.Shared.Helpers;
@@ -10,7 +11,7 @@ using Spectre.Console;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services
 {
-    public class AgregarUsuarioService
+    public class AgregarUsuarioService : IAgregarUsuarioService
     {
         private readonly UsuarioRepository _usuarioRepository;
         private List<Domain.Entities.Usuario> _usuarios = new List<Domain.Entities.Usuario>();

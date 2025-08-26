@@ -59,5 +59,18 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
                 throw;
             }
         }
+        public async Task DeleteAsync(Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario usuario)
+        {
+            try
+            {
+                _context.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar usuario: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
                 .Include(u => u.likesrecibidos!)
                 .Include(u => u.matches_1!)
                 .Include(u => u.matches_2!)
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task AddAsync(Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario usuario)
@@ -56,6 +57,49 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al guardar InteresesUsuario: {ex.Message}");
+                throw;
+            }
+        }
+        public async Task AddAsynclike(Campus_love_AndresForero_HectorMejia.src.Modules.Likes.Domain.Entities.Likes like)
+        {
+            try
+            {
+                var existeLike = await _context.Set<Campus_love_AndresForero_HectorMejia.src.Modules.Likes.Domain.Entities.Likes>()
+                    .AnyAsync(l => l.Id_usuario_darlike == like.Id_usuario_darlike && 
+                                l.Id_usuario_recibirlike == like.Id_usuario_recibirlike);
+                
+                if (existeLike)
+                {
+                    return;
+                }
+
+                await _context.AddAsync(like);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar Like: {ex.Message}");
+                throw;
+            }
+        }
+        
+        public async Task AddAsyncdislike(Campus_love_AndresForero_HectorMejia.src.Modules.Dislikes.Domain.Entities.Dislikes dislike)
+        {
+            try
+            {
+                var existeDislike = await _context.Set<Campus_love_AndresForero_HectorMejia.src.Modules.Dislikes.Domain.Entities.Dislikes>()
+                    .AnyAsync(d => d.Id_usuario_dardislike == dislike.Id_usuario_dardislike && 
+                                d.Id_usuario_recibirdislike == dislike.Id_usuario_recibirdislike);
+                if (existeDislike)
+                {
+                    return;
+                }
+                await _context.AddAsync(dislike);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar Dislike: {ex.Message}");
                 throw;
             }
         }

@@ -29,7 +29,8 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
             switch (opcion2)
             {
                 case " Encontrar el amor de tu vida":
-
+                    var buscarParejaService = new EncontrarMatchServices();
+                    await buscarParejaService.EncontrarMatch(id);
                     break;
                 case " Matches":
 

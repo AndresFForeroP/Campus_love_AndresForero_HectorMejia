@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
+using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Services;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
+using Spectre.Console;
 
 
 internal class Program
 {
     public static async Task Main(string[] args)
     {
-        var dibujoMenu = new DibujoMenuPrincipal();
-        await dibujoMenu.InicioAsync();
+        // var dibujoMenu = new DibujoMenuPrincipal();
+        // await dibujoMenu.InicioAsync();
+        var AgregarUsuario = new AgregarUsuarioService();
+        await AgregarUsuario.AgregarUsuario();
     }
 }

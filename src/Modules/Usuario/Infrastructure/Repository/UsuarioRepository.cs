@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructure.Repository
 {
@@ -29,6 +30,21 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Infrastructur
                 .Include(u => u.matches_1!)
                 .Include(u => u.matches_2!)
                 .ToListAsync();
+        }
+        public async Task AddAsync(Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Domain.Entities.Usuario usuario)
+        {
+
+            try
+            {
+                Console.WriteLine($"Usuario agregado: {usuario.nombre} edad: {usuario.edad} carrera: {usuario.carrera} frase: {usuario.frase}");
+                await _context.AddAsync(usuario);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar usuario: {ex.Message}");
+                throw;
+            }
         }
     }
 }

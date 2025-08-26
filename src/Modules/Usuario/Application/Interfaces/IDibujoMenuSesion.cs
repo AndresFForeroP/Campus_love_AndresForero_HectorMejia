@@ -7,6 +7,6 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.I
 {
     public interface IDibujoInicioSesion
     {
-        Task IniciarDibujoAsync();
+        void IniciarDibujoAsync();
     }
 }

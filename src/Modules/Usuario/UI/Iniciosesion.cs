@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Spectre.Console;
@@ -47,8 +49,14 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
                 dibujoMenuUsers.MostrarError("Credenciales incorrectas. Intente de nuevo.");
                 Console.WriteLine("Presiona cualquier tecla para continuar...");
                 Console.ReadKey();
-                await dibujoInicioSesion.IniciarDibujoAsync();
+                dibujoInicioSesion.IniciarDibujoAsync();
             }
+        }
+        private string HashSHA256(string input)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower(); // Igual que en MySQL
         }
     }
 }

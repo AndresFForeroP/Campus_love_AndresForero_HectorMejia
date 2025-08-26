@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.Application.Interfaces;
 using Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI;
-using Spectre.Console;
 
 
 internal class Program
@@ -13,6 +12,5 @@ internal class Program
     {
         var dibujoMenu = new DibujoMenuPrincipal();
         await dibujoMenu.InicioAsync();
-        
     }
 }

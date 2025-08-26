@@ -14,6 +14,7 @@ namespace Campus_love_AndresForero_HectorMejia.src.Modules.Usuario.UI
     {
         private readonly DibujoMenuUser dibujoMenuUsers = new DibujoMenuUser();
         private readonly IMenuRegistro menuRegistro = new MenuRegistro();
+        private readonly IMenusSesion menusSesion = new MenusSesion();
 
         public async Task InicioAsync()
         {

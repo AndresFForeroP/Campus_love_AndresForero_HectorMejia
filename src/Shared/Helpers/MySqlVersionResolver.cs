@@ -1,7 +1,7 @@
 using System;
 using MySqlConnector;
 
-namespace Cafe_Colombiano.src.Shared.Helpers
+namespace Campus_love_AndresForero_HectorMejia.src.Shared.Helpers
 {
     public class MySqlVersionResolver
     {
